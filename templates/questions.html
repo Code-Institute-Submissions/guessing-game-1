@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% block content %}
+
+<h1>Hello {{ username }}</h1>
+
+<form name="answerForm" id="answerForm" method="POST">
+    {% for question in questions %}
+    <p>{{ questions[loop.index0].question }}</p>
+    <input type="text" name='{{ loop.index }}' />
+
+    <p id="result"></p>
+    {% endfor %}
+
+    <button type="submit" id="submit-btn">Send</button> {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+</form>
+
+{% endblock %}
