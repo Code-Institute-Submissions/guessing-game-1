@@ -2,21 +2,27 @@
 
 <h1>Hello {{ username }}</h1>
 
+
 <form name="answerForm" id="answerForm" method="POST">
-    {% for question in questions %}
-    <p>{{ questions[loop.index0].question }}</p>
-    <input type="text" name='{{ loop.index }}' />
-
-    <p id="result"></p>
+    {% for question in data %}
+    <p>{{ data[loop.index0].question }}</p>
+    {% set indx = data[:5].index(question)+1 %}
+    <input type="text" name='{{ loop.index }}' value="{{ request.form[indx|string] }}" placeholder="Your answer"/>
+    
+    <p>{{ question.answer }}</p>
+    
     {% endfor %}
+    
+    <button type="submit" id="submit-btn">Send</button> 
+</form>
 
-    <button type="submit" id="submit-btn">Send</button> {% with messages = get_flashed_messages() %} {% if messages %}
+
+{% with messages = get_flashed_messages() %} {% if messages %}
     <ul class=flashes>
         {% for message in messages %}
         <li>{{ message }}</li>
         {% endfor %}
     </ul>
     {% endif %} {% endwith %}
-</form>
 
 {% endblock %}
