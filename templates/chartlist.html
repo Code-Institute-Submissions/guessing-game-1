@@ -14,7 +14,7 @@
         <tr>
             <th scope="row">{{ loop.index }}</th>
             {% for k, v in person.items() %}
-            <td>{{ v['name'] }}</td>
+            <td>{{ v['name'].title() }}</td>
             <td>{{ v['score'] }}</td>
             {% endfor %}
         </tr>

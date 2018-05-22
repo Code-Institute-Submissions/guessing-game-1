@@ -6,13 +6,12 @@ app.secret_key = "secret key"
 
 
 def quiz_answer(data):
-    
     count = 0
     
     for i in range(len(request.form)):
         answers = request.form[str(i+1)]
         for j in range(len(data)):
-            if answers == data[j]['answer']:
+            if answers.lower() == data[j]['answer'].lower():
                 count += 1
     return count
 
@@ -22,7 +21,7 @@ If username exist function return true
 """    
 def if_user_exist(user_data, username):
     for item in user_data:
-        if username in item['user']['name']:
+        if username.lower() in item['user']['name']:
             return True
         
 """
@@ -32,12 +31,12 @@ If if_user_exist() return true
 def user_to_json(user_data, username):
     if not if_user_exist(user_data, username):
         with open('data/username.json', 'w') as user:
-            user_dict = {'user':{'name':username}}
+            user_dict = {'user':{'name':username.lower()}}
             user_data.append(user_dict)
             json.dump(user_data, user, indent=2)
 
 """
-Function receive scors and add to data
+Function receive scors and append to data
 
 !!! Save only the best result
 """
@@ -46,8 +45,8 @@ def append_user_result_in_data(username, score):
         users_data = json.load(users_data)
         
     for item in users_data:
-        if username in item['user']['name']:
-            item['user'].update({'score': score})
+        if username.lower() in item['user']['name']:
+            item['user'].update({'score': score}) 
     
     with open('data/username.json', 'w') as user:
         json.dump(users_data, user, indent=2)
@@ -96,8 +95,8 @@ def result():
 
 @app.route('/chartlist')
 def chartlist():
-    with open('data/username.json', 'r') as json_data:
-        data = json.load(json_data)
+    with open('data/username.json', 'r') as data:
+        data = json.load(data)
         #newlist = sorted(data, key=itemgetter('score'), reverse=True)
         data.sort(key=lambda e: e['user']['score'], reverse=True)
         

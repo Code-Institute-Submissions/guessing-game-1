@@ -1,6 +1,6 @@
 {% extends "base.html" %}{% block content %}
 
-<h1>Hello {{ username }}</h1>
+<h1>Hello {{ username.title() }}</h1>
 
 
 <form name="answerForm" id="answerForm" method="POST">
