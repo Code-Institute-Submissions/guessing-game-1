@@ -1,14 +1,15 @@
 {% extends "base.html" %}{% block content %}
 
     <h1>Wellcome to Guessing Game</h1>
+
     <h3>Please fill your name to start the game</h3>
 
     <form name="name" id="name" method="POST">
         <label for="username">Username:</label>
-        <input type="text" name="username"/>
+        <input type="text" name="username" />
         <button>Run</button>
     </form>
-    
+
     {% with messages = get_flashed_messages() %} {% if messages %}
     <ul class=flashes>
         {% for message in messages %}
@@ -16,5 +17,5 @@
         {% endfor %}
     </ul>
     {% endif %} {% endwith %}
-    
+
 {% endblock %}

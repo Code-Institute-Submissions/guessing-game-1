@@ -7,22 +7,20 @@
     {% for question in data %}
     <p>{{ data[loop.index0].question }}</p>
     {% set indx = data[:5].index(question)+1 %}
-    <input type="text" name='{{ loop.index }}' value="{{ request.form[indx|string] }}" placeholder="Your answer"/>
-    
+    <input type="text" name='{{ loop.index }}' placeholder="Your answer" />
+
     <p>{{ question.answer }}</p>
-    
+
     {% endfor %}
-    
-    <button type="submit" id="submit-btn">Send</button> 
+
+    <button type="submit" id="submit-btn">Send</button>
 </form>
 
 
 {% with messages = get_flashed_messages() %} {% if messages %}
-    <ul class=flashes>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %} {% endwith %}
-
-{% endblock %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %} {% endwith %} {% endblock %}

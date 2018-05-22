@@ -1,11 +1,13 @@
 [
   {
-    "Madenden": {
+    "user": {
+      "score": 3,
       "name": "Madenden"
     }
   },
   {
-    "den": {
+    "user": {
+      "score": 1,
       "name": "den"
     }
   }

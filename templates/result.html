@@ -1,5 +1,5 @@
 {% extends "base.html" %}{% block content %}
-<h1>hahaha</h1>
+<h1>{{username}}</h1>
 {% with messages = get_flashed_messages() %} {% if messages %}
     <ul class=flashes>
         {% for message in messages %}
@@ -7,5 +7,6 @@
         {% endfor %}
     </ul>
     {% endif %} {% endwith %}
+    <a href="{{ '/chartlist' }}" class="btn btn-primary active" role="button" aria-pressed="true">Link</a>
 
 {% endblock %}
