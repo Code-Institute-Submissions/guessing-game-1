@@ -1,26 +1,27 @@
 {% extends "base.html" %}{% block content %}
+<div class="col-sm-12">
 
-<h1>Hello {{ username.title() }}</h1>
-
-
-<form name="answerForm" id="answerForm" method="POST">
-    {% for question in data %}
-    <p>{{ data[loop.index0].question }}</p>
-    {% set indx = data[:5].index(question)+1 %}
-    <input type="text" name='{{ loop.index }}' placeholder="Your answer" />
-
-    <p>{{ question.answer }}</p>
-
-    {% endfor %}
-
-    <button type="submit" id="submit-btn">Send</button>
-</form>
+    <h1>Hello {{ username.title() }}</h1>
 
 
-{% with messages = get_flashed_messages() %} {% if messages %}
-<ul class=flashes>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %} {% endwith %} {% endblock %}
+    <form name="answerForm" id="answerForm" method="POST">
+        <p>{{ data.question }}</p>
+        <input type="text" name='1' placeholder="Your answer" />
+        
+        <p>{{ data.answer }}</p>
+
+        <button type="submit" id="submit-btn">Send</button>
+    </form>
+
+
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+</div>
+
+{% endblock %}

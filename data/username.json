@@ -1,13 +1,13 @@
 [
   {
     "user": {
-      "score": 5, 
+      "score": 0, 
       "name": "denis"
     }
   }, 
   {
     "user": {
-      "score": 1, 
+      "score": 2.5, 
       "name": "madenden"
     }
   }, 
@@ -21,6 +21,12 @@
     "user": {
       "score": 3, 
       "name": "katy"
+    }
+  }, 
+  {
+    "user": {
+      "score": 3.5, 
+      "name": "olesya"
     }
   }
 ]
