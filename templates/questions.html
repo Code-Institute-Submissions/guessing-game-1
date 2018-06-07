@@ -1,26 +1,29 @@
 {% extends "base.html" %}{% block content %}
 <div class="col-sm-12">
 
-    <h1>Hello {{ username.title() }}</h1>
+    <h1 class="display-4">Hello {{ username.title() }}</h1>
+    
+    <h4 class="questions-subtitle">You have  points out of 10 points</h4>
 
+    <form name="answerForm" id="answerForm" method="POST" class="form-group">
+        <div class="form-group">
+            <p class="lead">{{ data.question }}</p>
+            <input type="text" name='answer' class="form-control col-md-8" placeholder="Your answer" /> 
+        </div>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
 
-    <form name="answerForm" id="answerForm" method="POST">
-        <p>{{ data.question }}</p>
-        <input type="text" name='1' placeholder="Your answer" />
-        
         <p>{{ data.answer }}</p>
-
-        <button type="submit" id="submit-btn">Send</button>
+        
+        
+        <button class="btn btn-secondary mb-2" type="submit" name="Skip question" id="skip" value="Skip question">Skip the answer</button>
+        <button class="btn btn-success mb-2" type="submit" id="submit-btn">Send the answer</button>
     </form>
-
-
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <ul class=flashes>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %} {% endwith %}
 
 </div>
 
