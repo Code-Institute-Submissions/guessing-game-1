@@ -1,15 +1,18 @@
 import random, json, os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from utils import *
+from settings import secret_key
 
 
 app = Flask(__name__)
-app.secret_key = "secret key"
+app.secret_key = secret_key
 
 
 class counter:
     attempts = 0
     step = 0
+    points_per_q = 10
+    total_points = 0
     
 
 @app.route('/', methods=['GET', 'POST'])
@@ -19,6 +22,7 @@ def index():
         username = request.form['username']
         clear_counter()
         counter.step = 0
+        counter.total_points = 0
         
         if not username: 
             flash('Please fill out username field')
@@ -53,45 +57,57 @@ def questions(username):
         # Action on skip button
         if request.form.get("Skip question"):
             counter.attempts = 0
+            counter.points_per_q = 10
             if counter.step < 4:
                 counter.step += 1
-                return render_template('questions.html', username = username, data = data[counter.step], step = counter.step)
+                return render_template('questions.html', username = username, data = data[counter.step], step = counter.step, q_points = counter.points_per_q)
             else:
                 counter.step = 4
-                append_user_result_in_data(username, score)
-                return redirect(url_for('result', username = username, score = score))
+                total = counter.total_points
+                append_user_result_in_data(username, total)
+                return redirect(url_for('result', username = username, score = score, total = total))
         
         # Action if empty input field
         if request.form['answer'] == '':
             flash("Please fill the answer")
-            return render_template('questions.html', username = username, data = data[counter.step], step = counter.step)
+            return render_template('questions.html', username = username, data = data[counter.step], step = counter.step, q_points = counter.points_per_q)
         
         # Action when correct answer
         if correct_answer(data):
+            counter.total_points += counter.points_per_q
+            counter.points_per_q = 10
+            
             if counter.step < 4:
                 counter.attempts = 0
                 if counter.step < 4:
                     counter.step += 1
                 else:
                     counter.step = 4
-                return render_template('questions.html', username = username, data = data[counter.step], step = counter.step)
+                return render_template('questions.html', username = username, data = data[counter.step], step = counter.step, q_points = counter.points_per_q)
             else:
-                append_user_result_in_data(username, score)
-                return redirect(url_for('result', username = username, score = score))
+                total = counter.total_points
+                append_user_result_in_data(username, total)
+                return redirect(url_for('result', username = username, score = score, total = total))
                 
         # Action when wrong answer
         else:
             counter.attempts += 1
             if counter.attempts < 5:
-                flash(counter.attempts)
                 flash("Wrong answer! Try again")
-                return render_template('questions.html', username = username, data = data[counter.step], step = counter.step)
+                counter.points_per_q -= 2
+                return render_template('questions.html', username = username, data = data[counter.step], step = counter.step, q_points = counter.points_per_q)
             else:
-                counter.step += 1
-                return render_template('questions.html', username = username, data = data[counter.step], step = counter.step)
+                counter.points_per_q = 10
+                if counter.step < 4:
+                    counter.attempts = 0
+                    if counter.step < 4:
+                        counter.step += 1
+                    else:
+                        counter.step = 4
+                return render_template('questions.html', username = username, data = data[counter.step], step = counter.step, q_points = counter.points_per_q)
             
         
-    return render_template('questions.html', data = data[0], username = username, step = counter.step)
+    return render_template('questions.html', data = data[0], username = username, step = counter.step, q_points = counter.points_per_q)
 
 
 
@@ -101,12 +117,14 @@ def result():
     score = request.args.get('score')
     username= request.args.get('username')
     
+    total= request.args.get('total')
+    
     with open('data/username.json', 'r') as data:
         data = json.load(data)
         #newlist = sorted(data, key=itemgetter('score'), reverse=True)
         data.sort(key=lambda e: e['user']['score'], reverse=True)
         
-    return render_template('result.html', data = data, username= username, score = score)
+    return render_template('result.html', data = data, username= username, score = score, total = total)
         
     
 app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)

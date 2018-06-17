@@ -1,9 +1,11 @@
 {% extends "base.html" %}{% block content %}
 <div class="col align-self-center">
     
-    <h1>{{ username }}</h1>
+    <h1>{{ username|title }}</h1>
     
-    <h3>Correct answers {{ score }} out of 5</h3>
+    <h4>Correct answers {{ score }} out of 5</h4>
+    
+    <h4>Total points: {{ total }}</h4>
 
 </div>
 <div class="col">
