@@ -2,13 +2,12 @@ import random, json, os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from utils import *
 from pathlib import Path
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 
 app = Flask(__name__)
 
-env_path = '/.env'
-load_dotenv(dotenv_path=env_path)
+load_dotenv(find_dotenv())
 
 app.secret_key = os.getenv('SECRET_KEY')
 
