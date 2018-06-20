@@ -1,7 +1,7 @@
 import random, json, os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from utils import *
-from settings import secret_key
+from settings import *
 
 
 app = Flask(__name__)
