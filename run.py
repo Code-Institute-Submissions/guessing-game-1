@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-env_path = Path('.') / '.env'
+env_path = '/.env'
 load_dotenv(dotenv_path=env_path)
 
 app.secret_key = os.getenv('SECRET_KEY')
