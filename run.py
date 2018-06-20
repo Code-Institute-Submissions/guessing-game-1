@@ -4,14 +4,14 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, flash
 from utils import *
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
- 
-secret_key = os.getenv('SECRET_KEY')
 
 
 app = Flask(__name__)
-app.secret_key = secret_key
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+app.secret_key = os.getenv('SECRET_KEY')
 
 
 class counter:
