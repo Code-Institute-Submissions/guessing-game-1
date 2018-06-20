@@ -7,11 +7,9 @@ body {
 }
 
 .row {
-    width: 55%;
     position: absolute;
     top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
 }
 
 .main-page-container {
@@ -25,4 +23,14 @@ body {
 
 .questions-subtitle {
     margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 600px) {
+    .row {
+        width: 55%;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
