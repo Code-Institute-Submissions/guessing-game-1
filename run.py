@@ -10,7 +10,7 @@ load_dotenv(dotenv_path)
 
 app = Flask(__name__)
 
-app.secret_key = os.environ.get('SECRET_KEY')
+app.secret_key = os.getenv('SECRET_KEY')
 
 
 class counter:
