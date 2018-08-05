@@ -1,30 +1,29 @@
 {% extends "base.html" %}{% block content %}
-<div class="col-sm-12">
 
-    <h1 class="display-4">Hello {{ username.title() }}</h1>
+<h1 class="hello_name">Hello {{ username.title() }}</h1>
+<div class="row">
+    <div class="col-sm-12">
+        <form name="answerForm" id="answerForm" method="POST" class="form-group">
+            <div class="form-group">
+                <h4 class="question">{{ step+1 }}. {{ data.question }}</h4>
+                <input type="text" name='answer' class="form-control col-md-8" placeholder="Your answer" /> 
+            </div>
+            {% with messages = get_flashed_messages() %} {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+            <p class="questions-subtitle">You can get {{ q_points }} points for the correct answer</p>
     
-    <h4 class="questions-subtitle">You can get {{ q_points }} points for the correct answer</h4>
-
-    <form name="answerForm" id="answerForm" method="POST" class="form-group">
-        <div class="form-group">
-            <p class="lead">{{ data.question }}</p>
-            <input type="text" name='answer' class="form-control col-md-8" placeholder="Your answer" /> 
-        </div>
-        {% with messages = get_flashed_messages() %} {% if messages %}
-        <ul class=flashes>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %} {% endwith %}
-
-        <p>{{ data.answer }}</p>
-        
-        
-        <button class="btn btn-secondary mb-2" type="submit" name="Skip question" id="skip" value="Skip question">Skip the answer</button>
-        <button class="btn btn-success mb-2" type="submit" id="submit-btn">Send the answer</button>
-    </form>
-
+            <p>{{ data.answer }}</p>
+            
+            <button class="btn btn-secondary mb-2" type="submit" name="Skip question" id="skip" value="Skip question">Skip the answer</button>
+            <button class="btn btn-success mb-2" type="submit" id="submit-btn">Send the answer</button>
+        </form>
+    
+    </div>
 </div>
 
 {% endblock %}

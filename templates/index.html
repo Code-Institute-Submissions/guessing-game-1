@@ -1,25 +1,28 @@
 {% extends "base.html" %}{% block content %}
-<div class="col-sm-12 main-page-container">
 
-    <h1 class="display-4">Wellcome to Guessing Game</h1>
-
-    <p>Please fill your name to start the game</p>
-
-    <form name="name" id="name" method="POST" class="form-group">
-        <div class="col-md-9 align-middle form-group">
-            <input type="text" name="username" class="form-control" placeholder="Enter your nickname"/>
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Start the Game</button>
-    </form>
+<div class="row">
+    <div class="col-sm-12 main-page-container">
     
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <div class="alert alert-warning" role="alert">
-        {% for message in messages %}
-        {{ message }}
-        {% endfor %}
+        <h1 class="display-4">Wellcome to Guessing Game</h1>
+    
+        <p>Please fill your name to start the game</p>
+    
+        <form name="name" id="name" method="POST" class="form-group">
+            <div class="col-md-9 align-middle form-group">
+                <input type="text" name="username" class="form-control" placeholder="Enter your nickname"/>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Start the Game</button>
+        </form>
+        
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %} {% endwith %}
+    
     </div>
-    {% endif %} {% endwith %}
-
 </div>
 
 {% endblock %}

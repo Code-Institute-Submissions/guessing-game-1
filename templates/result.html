@@ -1,44 +1,49 @@
 {% extends "base.html" %}{% block content %}
-<div class="col align-self-center">
-    
-    <h1>{{ username|title }}</h1>
-    
-    <h4>Correct answers {{ score }} out of 5</h4>
-    
-    <h4>Total points: {{ total }}</h4>
 
-</div>
-<div class="col">
-
-    <h1>Chart List</h1>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Username</th>
-                <th scope="col">Score</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            {% for person in data %}
-            <tr>
-                <th scope="row">{{ loop.index }}</th>
-                {% for k, v in person.items() %}
-                <td>{{ v['name'].title() }}</td>
-                <td>{{ v['score'] }}</td>
+<div class="row">
+    <div class="col align-self-center">
+        
+        <h1>{{ username|title }}</h1>
+        
+        <h4>Correct answers {{ score }} out of 5</h4>
+        
+        <h4>Total points: {{ total }}</h4>
+        
+        <a href="{{ url_for('index') }}" class="btn btn-info" role="button">Try Again</a>
+    
+    </div>
+    <div class="col">
+    
+        <h1>Chart List</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Score</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                {% for person in data %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    {% for k, v in person.items() %}
+                    <td>{{ v['name'].title() }}</td>
+                    <td>{{ v['score'] }}</td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-            </tr>
+            </tbody>
+        </table>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
             {% endfor %}
-        </tbody>
-    </table>
-{% with messages = get_flashed_messages() %} {% if messages %}
-    <ul class=flashes>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %} {% endwith %}
+        </ul>
+        {% endif %} {% endwith %}
+    </div>
 </div>
 
 {% endblock %}

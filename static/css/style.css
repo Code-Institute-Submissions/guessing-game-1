@@ -25,6 +25,19 @@ body {
     margin-bottom: 20px;
 }
 
+.question {
+    margin-bottom: 20px;
+}
+
+.hello_name {
+    text-align: right;
+    font-weight: 400;
+}
+
+.questions-subtitle {
+    font-weight: 300;
+}
+
 @media only screen and (min-width: 600px) {
     .row {
         width: 55%;
@@ -32,5 +45,15 @@ body {
         top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+}
+@media only screen and (max-width: 599px) {
+    .row {
+        top: 50%;
+    }
+    
+    .hello_name {
+        text-align: center;
+        font-size: 30px;    
     }
 }
