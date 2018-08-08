@@ -19,6 +19,9 @@ class counter:
     points_per_q = 10
     total_points = 0
     
+class answers:
+    wrong_answers = []
+    
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -63,6 +66,7 @@ def questions(username):
         if request.form.get("Skip question"):
             counter.attempts = 0
             counter.points_per_q = 10
+            answers.wrong_answers = []
             if counter.step < 4:
                 counter.step += 1
                 return render_template('questions.html', username = username, data = data[counter.step], step = counter.step, q_points = counter.points_per_q)
@@ -81,6 +85,7 @@ def questions(username):
         if correct_answer(data):
             counter.total_points += counter.points_per_q
             counter.points_per_q = 10
+            answers.wrong_answers = []
             
             if counter.step < 4:
                 counter.attempts = 0
@@ -96,11 +101,14 @@ def questions(username):
                 
         # Action when wrong answer
         else:
+            answers.wrong_answers.append(request.form['answer'])
             counter.attempts += 1
             if counter.attempts < 5:
                 flash("Wrong answer! Try again")
                 counter.points_per_q -= 2
-                return render_template('questions.html', username = username, data = data[counter.step], step = counter.step, q_points = counter.points_per_q)
+                return render_template('questions.html', username = username, data = data[counter.step],
+                                        step = counter.step, q_points = counter.points_per_q,
+                                        wrong_answers=answers.wrong_answers)
             else:
                 counter.points_per_q = 10
                 if counter.step < 4:

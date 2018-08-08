@@ -19,6 +19,15 @@
     
             <p>{{ data.answer }}</p>
             
+            {% if wrong_answers | length != 0 %}
+            <p>Incorrect answers:</p>
+            <ul>
+                {% for answer in wrong_answers %}
+                <li>{{ answer }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            
             <button class="btn btn-secondary mb-2" type="submit" name="Skip question" id="skip" value="Skip question">Skip the answer</button>
             <button class="btn btn-success mb-2" type="submit" id="submit-btn">Send the answer</button>
         </form>
